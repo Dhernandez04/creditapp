@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container-fluid">
+        <div class="row">
+            <nav th:replace="layout/layout :: sidebar"></nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div th:replace="layout/layout :: breadcrumb"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="btn btn-primary my-3" th:href="@{/metodos-de-pago/listar}">Regresar</a>
+                        <form th:action="@{/metodos-de-pago/crear}" th:object="${payment}" method="post">
+                            <div class="mb-3">
+                                <label for="name">Nombre *</label>
+                                <input type="hidden"  id="id"  th:field="*{id}" class="form-control">
+                                <input type="text"  id="name"  th:field="*{name}" class="form-control">
+                                <small class="text-danger" th:if=${#fields.hasErrors('name')} th:errors="*{name}"></small>
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" class="btn btn-success" th:value="${title}" >
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+   <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
+        
+    

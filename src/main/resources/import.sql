@@ -1,0 +1,2 @@
+INSERT INTO customers(dni,name,surname,address,telephone,active,created_at)values(1,'test','test','test, test','32646833',true,now()),(2,'test1','test1','Barrio de prueba','32646833',true,now()),
+INSERT INTO types_of_credit(id,name,active,created_at) values (1,'Mensual',true,now()),(2,'Quincenal',true,now()),(3,'Semanal',true,now());

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container-fluid">
+        <div class="row">
+            <nav th:replace="layout/layout :: sidebar"></nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div th:replace="layout/layout :: breadcrumb"></div>
+                <div th:replace="layout/layout :: messages"></div>
+                <a class="btn btn-success my-3" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/clientes/crear}">Nuevo cliente</a>
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Acciones</th>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Estado</th>
+                                <th>Fecha de registro</th>
+                            </tr>
+                            <tbody>
+                                <tr th:each="customer: ${customers}" th:onclick="|viewCustomer('${customer.dni}')|">
+                                    <td>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-warning" th:href="@{/clientes/editar/}+${customer.dni}"><i class="fas fa-edit"></i></a>&nbsp;
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')"class="btn btn-sm btn-danger" th:href="@{/clientes/eliminar/}+${customer.dni}"><i class="fas fa-trash"></i></a>
+                                        <a class="btn btn-sm btn-info" th:href="@{/clientes/resumen-credito/}+${customer.dni}"><i class="fas fa-info-circle"></i></a>
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-success" href=""th:href="@{/creditos/nuevo/}+${customer.dni}"><i class="fas fa-file-invoice-dollar"></i></a>
+                                    </td>
+                                    <td th:text="${customer.dni}"></td>
+                                    <td th:text="${customer.name}"></td>
+                                    <td th:text="${customer.surname}"></td>
+                                    <td th:text="${customer.address}"></td>
+                                    <td th:text="${customer.telephone}"></td>
+                                    <td th:text="${customer.active}"></td>
+                                    <td th:text="${customer.createdAt}"></td>
+                                </tr>
+                            </tbody>
+                        </thead>
+                    </table>
+
+                    <nav aria-label="Pagination">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
+								<a class="page-link" th:href="@{|/clientes/listar?page=${prev}|}">Anterior</a>
+							</li>
+							<li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active': ''}">
+								<a class="page-link" th:href="@{|/clientes/listar?page=${page}|}" th:text="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+								<a class="page-link" th:href="@{|/clientes/listar?page=${next}|}">Siguiente</a>
+							</li>
+						</ul>
+					</nav>
+                </div>
+            </main>
+        </div>
+    </div>
+   <footer th:replace="layout/layout :: footer"></footer>
+
+   <script>
+     function viewCustomer(id){
+          
+           window.location.href = `${window.location.origin}/clientes/resumen-credito/${id}`;
+      }
+   </script>
+</body>
+</html>

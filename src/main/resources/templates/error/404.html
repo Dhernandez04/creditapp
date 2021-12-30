@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container-fluid">
+        <div class="row my-5">
+            <div class="col-md-2 text-center">
+                 <p><i class="fa fa-exclamation-triangle fa-5x"></i><br/>Status Code: 404</p>
+            </div>
+            <div class="col-md-10">
+                 <h3>OPPSSS!!!! lo siento...</h3>
+                 <p>La pagina que esta buscando no ha sido encontrada.<br/>Regrese a la página anterior para continuar navegando..</p>
+                 <a class="btn btn-danger" href="javascript:history.back()">Ir atras</a>
+            </div>
+       </div>
+    </div>
+   <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

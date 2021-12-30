@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container-fluid">
+        <div class="row">
+            <nav th:replace="layout/layout :: sidebar"></nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div th:replace="layout/layout :: breadcrumb"></div>
+                <div th:replace="layout/layout :: messages"></div>
+             
+                <a class="btn btn-primary my-3" th:href="@{/creditos}">Regresar</a>
+                <form th:action="@{/creditos/store}" th:object="${credit}"  method="post">
+                   <div class="row justify-content-center">
+                       <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="">Cliente</label>
+                            <select th:field=*{customer} id="customer"  disabled class="form-control">
+                                <option value="">Seleccionar cliente</option>
+                                <option th:each=customer:${customers} th:value="${customer.dni}" th:text="${customer.name}  + ' ' + ${customer.surname}"></option>
+                            </select>
+                        </div>
+                       
+                        <div class="mb-3">
+                            <label for="importe">Importe del credito</label>
+                            <input th:field="*{creditValue}" type="text" id="importe" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modality">Modalidad</label>
+                            <select th:field="*{typeOfCredit}" id="modality"  class="form-control">
+                                <option value="">Seleccionar modalidad</option>
+        
+                                <option th:each=typecredit:${typesofcredit} th:value="${typecredit.id}" th:text="${typecredit.name}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="interest_rate">Tasa de interes (%)</label>
+                            <input th:field="*{interestRate}" type="text" id="interest_rate" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad_cuotas">Numero de cuotas</label>
+                            <input th:field="*{numberOfInstallments}" type="text" id="cantidad_cuotas" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Importe de la cuota</label>
+                            <input th:field="*{feeAmount}" type="text" id="pago" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Total a pagar</label>
+                            <input type="text" id="total" class="form-control">
+                        </div>
+                        <p>Interes Generado <h1 class="text-success" id="utility">0.0</h1></p>
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-success" th:value="${title}">
+                        </div>
+                       </div>
+                   </div>
+                </form>
+            </main>
+        </div>
+    </div>
+   <footer th:replace="layout/layout :: footer"></footer>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+   
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
+   <!-- Or for RTL support -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+   <script th:src="@{/js/creditos.js}"></script>
+</body>
+</html>
